@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://c3w4dj62td6v"]
+
+[ext_resource type="Script" uid="uid://g2s46vev4hj1" path="res://main.gd" id="1_d2wx5"]
+[ext_resource type="PackedScene" uid="uid://brvswtc6fk62x" path="res://butterflies.tscn 16-05-46-879.tscn" id="2_mxae5"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ig7tw"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_0xm2m"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ig7tw"]
+albedo_color = Color(0.46243644, 0.8786076, 0.99491984, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h2yge"]
+albedo_color = Color(2.1658838e-07, 0.43210873, 0.32078278, 1)
+
+[node name="Main" type="Node3D" unique_id=1031730793]
+script = ExtResource("1_d2wx5")
+
+[node name="XROrigin3D" type="XROrigin3D" parent="." unique_id=820133984]
+
+[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D" unique_id=1413868018]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1673857622]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.6958776, 28.531559, -9.439978)
+light_energy = 1.438
+omni_range = 200.0
+omni_attenuation = 0.397
+
+[node name="Camera3D" type="Camera3D" parent="OmniLight3D" unique_id=267847825]
+transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 3.482, 30, 50)
+keep_aspect = 0
+
+[node name="Butterflies2" parent="." unique_id=1330562558 instance=ExtResource("2_mxae5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.6958776, 28.531559, -9.439978)
+visible = false
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=2054121922]
+physics_material_override = SubResource("PhysicsMaterial_ig7tw")
+
+[node name="Wall" type="MeshInstance3D" parent="StaticBody3D" unique_id=828487826]
+transform = Transform3D(99.99998, 0.0014882844, 0.00071167096, -0.0015470901, 99.99996, 0.00083804544, -0.07116584, -0.083805606, 0.9999994, -7.017, -7.771, -50)
+mesh = SubResource("BoxMesh_0xm2m")
+surface_material_override/0 = SubResource("StandardMaterial3D_ig7tw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=405481812]
+transform = Transform3D(100, 0, 0, 0, 1, 0, 0, 0, 100, -5.871063, -6.82193, 4.304142)
+mesh = SubResource("BoxMesh_0xm2m")
+surface_material_override/0 = SubResource("StandardMaterial3D_h2yge")

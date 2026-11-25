@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://brvswtc6fk62x"]
+
+[ext_resource type="PackedScene" uid="uid://dbfxlnrimmdxj" path="res://Butterflies.glb" id="1_2itrc"]
+[ext_resource type="Script" uid="uid://dmsgdmqyil8u6" path="res://bf.gd" id="2_odlg0"]
+[ext_resource type="Texture2D" uid="uid://bn00fx88ov6ek" path="res://wings/3.png" id="3_fmfsh"]
+[ext_resource type="Script" uid="uid://dn8rlnyknpptq" path="res://animation_tree.gd" id="3_gy6fj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_38svp"]
+albedo_color = Color(5.2943824e-06, 0.7501207, 0.14977652, 1)
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_3w5rq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3w5rq"]
+transparency = 1
+albedo_texture = ExtResource("3_fmfsh")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gy6fj"]
+transparency = 1
+albedo_texture = ExtResource("3_fmfsh")
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_odlg0"]
+animation = &"RightWingAction"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gy6fj"]
+animation = &"RightWingAction_001"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wxn5d"]
+animation = &"BodyAction"
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_3w5rq"]
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_fmfsh"]
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_3w5rq"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_38svp"]
+graph_offset = Vector2(327.3596, 93.11992)
+nodes/output/position = Vector2(1710, 170)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_wxn5d")
+nodes/Animation/position = Vector2(380, 170)
+"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_odlg0")
+"nodes/Animation 2/position" = Vector2(400, 340)
+"nodes/Animation 3/node" = SubResource("AnimationNodeAnimation_gy6fj")
+"nodes/Animation 3/position" = Vector2(360, 530)
+nodes/Blend2/node = SubResource("AnimationNodeBlend2_fmfsh")
+nodes/Blend2/position = Vector2(760, 370)
+"nodes/Blend2 2/node" = SubResource("AnimationNodeBlend2_3w5rq")
+"nodes/Blend2 2/position" = Vector2(1110, 200)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_3w5rq")
+nodes/TimeScale/position = Vector2(1280, 190)
+node_connections = [&"output", 0, &"TimeScale", &"Blend2", 0, &"Animation 2", &"Blend2", 1, &"Animation 3", &"Blend2 2", 0, &"Animation", &"Blend2 2", 1, &"Blend2", &"TimeScale", 0, &"Blend2 2"]
+
+[node name="Butterflies" unique_id=1330562558 instance=ExtResource("1_2itrc")]
+script = ExtResource("2_odlg0")
+
+[node name="Background" parent="." index="0" unique_id=265264654]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_38svp")
+
+[node name="Body" parent="." index="1" unique_id=2067572352]
+transform = Transform3D(-0.0022047309, -0.150896, -1.7732161, -0.028372368, 0.968377, -0.27620667, 1.7943854, 0.01512633, -0.0065460308, -2.3826427, 0.5898216, 5.4568872)
+mesh = SubResource("ImmediateMesh_3w5rq")
+
+[node name="Body_001" parent="Body" index="0" unique_id=401269075]
+mesh = null
+
+[node name="Skeleton3D" parent="Body/Body_001/LeftWing" parent_id_path=PackedInt32Array(583838980) index="0" unique_id=649083681]
+bones/1/position = Vector3(-0.13011199, -0.004111269, -0.13433231)
+bones/1/rotation = Quaternion(-0.0052815424, -0.0062887752, 0.5584199, 0.82951784)
+bones/2/rotation = Quaternion(0.7204964, 0.017006958, 0.027889594, 0.6926888)
+bones/3/rotation = Quaternion(0.11950043, -0.032573093, -0.0071970993, 0.99227357)
+
+[node name="LeftWingMesh" parent="Body/Body_001/LeftWing/Skeleton3D" index="0" unique_id=1655512111]
+cast_shadow = 0
+surface_material_override/0 = SubResource("StandardMaterial3D_3w5rq")
+
+[node name="Skeleton3D" parent="Body/RightWing" parent_id_path=PackedInt32Array(197674833) index="0" unique_id=1479799786]
+bones/1/position = Vector3(-0.13011138, -0.004111403, -0.13433214)
+bones/1/rotation = Quaternion(-0.005281551, -0.0062887594, 0.5584199, 0.82951784)
+bones/2/rotation = Quaternion(0.7204964, 0.017006947, 0.027889585, 0.6926888)
+bones/3/rotation = Quaternion(0.119498536, -0.032566812, -0.007196986, 0.9922741)
+
+[node name="RightWingMesh" parent="Body/RightWing/Skeleton3D" index="0" unique_id=1505861209]
+surface_material_override/0 = SubResource("StandardMaterial3D_gy6fj")
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="3" unique_id=1298792243]
+tree_root = SubResource("AnimationNodeBlendTree_38svp")
+anim_player = NodePath("../AnimationPlayer")
+parameters/Blend2/blend_amount = 0.5
+"parameters/Blend2 2/blend_amount" = 0.5
+parameters/TimeScale/scale = 3.0
+script = ExtResource("3_gy6fj")
